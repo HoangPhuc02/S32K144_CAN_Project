@@ -301,7 +301,7 @@ app_b2_status_t APP_B2_Init(void)
     /* Enable PORTC interrupt in NVIC (for both buttons) */
     NVIC_EnableInterrupt(PORTC_IRQn);  /* PORTC_IRQn = 61 */
     NVIC_SetPriority(PORTC_IRQn, 3);
-    
+
     /* Configure Green LED (PTD16) */
     port_cfg.port = APP_B2_LED_GREEN_PORT;
     port_cfg.pin = APP_B2_LED_GREEN_PIN;

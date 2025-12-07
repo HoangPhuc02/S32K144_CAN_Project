@@ -199,7 +199,7 @@ app_b1_status_t APP_B1_Init(void)
     /* Enable peripheral clocks */
     CLOCK_SRV_EnablePeripheral(CLOCK_SRV_FLEXCAN0, CLOCK_SRV_PCS_NONE);
     CLOCK_SRV_EnablePeripheral(CLOCK_SRV_ADC0, CLOCK_SRV_PCS_SOSCDIV2);
-    CLOCK_SRV_EnablePeripheral(CLOCK_SRV_LPIT, CLOCK_SRV_PCS_SOSCDIV2);
+    CLOCK_SRV_EnablePeripheral(CLOCK_SRV_LPIT, CLOCK_SRV_PCS_FIRCDIV2);
     CLOCK_SRV_EnablePeripheral(CLOCK_SRV_PORTD, CLOCK_SRV_PCS_NONE);
     CLOCK_SRV_EnablePeripheral(CLOCK_SRV_PORTE, CLOCK_SRV_PCS_NONE);
     

@@ -2,12 +2,12 @@
  * @file    lpit_srv.h
  * @brief   LPIT Service Layer - Abstraction API
  * @details
- * Service layer cung cấp interface abstraction cho LPIT timer operations.
- * Che giấu chi tiết implementation và cung cấp API dễ sử dụng cho application.
+ * Service layer provides interface abstraction for LPIT timer operations.
+ * Hides implementation details and provides easy-to-use API for applications.
  * 
  * Features:
- * - Timer initialization và configuration
- * - Periodic timer với callback
+ * - Timer initialization and configuration
+ * - Periodic timer with callback
  * - Timer start/stop control
  * 
  * @author  PhucPH32

@@ -1,7 +1,7 @@
 /**
  * @file    port_srv.c
  * @brief   PORT Service Layer Implementation
- * @details Implementation của PORT service layer, wrapper cho PORT driver
+ * @details PORT service layer implementation, wrapper for PORT driver
  *
  * @author  PhucPH32
  * @date    05/12/2025

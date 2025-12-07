@@ -29,7 +29,7 @@ void LPIT_ConfigValue(lpit_config_value_t *p_config)
 	LPIT0->MCR |= LPIT_MCR_DBG_EN_MASK | LPIT_MCR_M_CEN_MASK;
 
 	/* Step 3: Set timer reload value (subtract 1 as per hardware requirement) */
-	LPIT0->TMR[p_config->channel].TVAL = p_config->value;
+	LPIT0->TMR[p_config->channel].TVAL = p_config->value - 1;
 
 	/* Step 4: Enable the selected channel */
 	SET_BIT(LPIT0->SETTEN, p_config->channel);

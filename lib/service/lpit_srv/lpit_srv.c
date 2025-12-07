@@ -1,7 +1,7 @@
 /**
  * @file    lpit_srv.c
  * @brief   LPIT Service Layer Implementation
- * @details Implementation của LPIT service layer, wrapper cho LPIT driver
+ * @details LPIT service layer implementation, wrapper for LPIT driver
  * 
  * @author  PhucPH32
  * @date    05/12/2025

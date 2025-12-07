@@ -2,11 +2,11 @@
  * @file    port_srv.h
  * @brief   PORT Service Layer - Abstraction API
  * @details
- * Service layer cung cấp interface abstraction cho PORT pin multiplexing.
- * Che giấu chi tiết implementation và cung cấp API dễ sử dụng cho application.
+ * Service layer provides interface abstraction for PORT pin multiplexing.
+ * Hides implementation details and provides easy-to-use API for applications.
  * 
  * Features:
- * - Pin mux configuration với struct tối ưu
+ * - Pin mux configuration with optimized struct
  * - Pull-up/Pull-down configuration
  * - Pin interrupt configuration
  * 
@@ -92,7 +92,7 @@ typedef struct {
 port_srv_status_t PORT_SRV_Init(void);
 
 /**
- * @brief Configure pin với struct (recommended)
+ * @brief Configure pin with struct (recommended)
  * @param config Pointer to pin configuration structure
  * @return port_srv_status_t Status of operation
  */

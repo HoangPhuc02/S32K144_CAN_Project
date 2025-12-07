@@ -2,11 +2,11 @@
  * @file    adc_srv.h
  * @brief   ADC Service Layer - Abstraction API
  * @details
- * Service layer cung cấp interface abstraction cho ADC operations.
- * Che giấu chi tiết implementation và cung cấp API dễ sử dụng cho application.
+ * Service layer provides interface abstraction for ADC operations.
+ * Hides implementation details and provides easy-to-use API for applications.
  * 
  * Features:
- * - ADC initialization và configuration
+ * - ADC initialization and configuration
  * - Single-shot conversion
  * - Calibration support
  * - Multi-channel management

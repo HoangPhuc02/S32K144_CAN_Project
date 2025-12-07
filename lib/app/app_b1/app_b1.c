@@ -30,7 +30,7 @@ static volatile bool s_adc_sample_request = false;
 static volatile uint32_t s_sample_count = 0;
 static volatile uint16_t s_last_adc_value = 0;
 
-/* ADC và LPIT config */
+/* ADC and LPIT configuration */
 static adc_srv_config_t s_adc_cfg;
 static lpit_srv_config_t s_lpit_cfg;
 
@@ -49,7 +49,7 @@ static void APP_B1_SendADCData(uint16_t adc_value);
 /*******************************************************************************
  * Private Functions
  ******************************************************************************/
-
+#define CHECK_LPIT_DELAY
 /**
  * @brief CAN receive callback
  * @details Processes commands from Board 2
@@ -74,6 +74,10 @@ static void APP_B1_LPITCallback(void)
 {
     if (s_app_state == APP_B1_STATE_SAMPLING) {
         s_adc_sample_request = true;
+#ifdef CHECK_LPIT_DELAY
+        GPIO_SRV_Toggle(APP_B1_LED_GREEN_PORT, APP_B1_LED_GREEN_PIN);  /* Toggle LED on CAN RX */
+
+#endif
     }
 }
 
@@ -122,7 +126,10 @@ static void APP_B1_StopADCSampling(void)
     if (s_app_state == APP_B1_STATE_SAMPLING) {
         /* Stop LPIT timer */
         LPIT_SRV_Stop(&s_lpit_cfg);
-        
+#ifdef CHECK_LPIT_DELAY
+        GPIO_SRV_WritePin(APP_B1_LED_GREEN_PORT, APP_B1_LED_GREEN_PIN, 1);  /* Toggle LED on CAN RX */
+
+#endif
         /* Update state */
         s_app_state = APP_B1_STATE_IDLE;
     }
@@ -235,6 +242,20 @@ app_b1_status_t APP_B1_Init(void)
     /* Turn off LED initially */
     GPIO_SRV_Write(APP_B1_LED_RED_PORT, APP_B1_LED_RED_PIN, 0);
     
+#ifdef CHECK_LPIT_DELAY
+    port_cfg.port = APP_B1_LED_GREEN_PORT;
+    port_cfg.pin  = APP_B1_LED_GREEN_PIN;
+    if (PORT_SRV_ConfigPin(&port_cfg) != PORT_SRV_SUCCESS) {
+        s_app_state = APP_B1_STATE_ERROR;
+        return APP_B1_ERROR;
+    }
+
+    if (GPIO_SRV_ConfigOutput(APP_B1_LED_GREEN_PORT, APP_B1_LED_GREEN_PIN) != GPIO_SRV_SUCCESS) {
+        s_app_state = APP_B1_STATE_ERROR;
+        return APP_B1_ERROR;
+    }
+
+#endif
     /* Configure CAN0 pins - PTE4 (RX) and PTE5 (TX) as ALT5 */
     port_cfg.port = 4;  /* Port E */
     port_cfg.pin = 4;   /* PTE4 - CAN0_RX */

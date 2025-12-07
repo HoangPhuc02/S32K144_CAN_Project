@@ -2,11 +2,11 @@
  * @file    gpio_srv.h
  * @brief   GPIO Service Layer - Abstraction API
  * @details
- * Service layer cung cấp interface abstraction cho GPIO operations.
- * Che giấu chi tiết implementation và cung cấp API dễ sử dụng cho application.
+ * Service layer provides interface abstraction for GPIO operations.
+ * Hides implementation details and provides easy-to-use API for applications.
  * 
  * Features:
- * - GPIO initialization và configuration
+ * - GPIO initialization and configuration
  * - Digital I/O operations
  * - Pin toggle operation
  * - External interrupt support (for buttons, sensors)

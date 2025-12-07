@@ -2,11 +2,11 @@
  * @file    can_srv.h
  * @brief   CAN Service Layer - Abstraction API
  * @details
- * Service layer cung cấp interface abstraction cho CAN communication.
- * Che giấu chi tiết implementation và cung cấp API dễ sử dụng cho application.
+ * Service layer provides interface abstraction for CAN communication.
+ * Hides implementation details and provides easy-to-use API for applications.
  * 
  * Features:
- * - CAN initialization và configuration
+ * - CAN initialization and configuration
  * - Message transmission
  * - Message reception
  * - RX callback support

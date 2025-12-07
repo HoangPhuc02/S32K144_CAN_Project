@@ -1,7 +1,7 @@
 /**
  * @file    adc_srv.c
  * @brief   ADC Service Layer Implementation
- * @details Implementation của ADC service layer, wrapper cho ADC driver
+ * @details ADC service layer implementation, wrapper for ADC driver
  *
  * @author  PhucPH32
  * @date    05/12/2025

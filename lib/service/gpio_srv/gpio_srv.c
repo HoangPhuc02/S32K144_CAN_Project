@@ -1,7 +1,7 @@
 /**
  * @file    gpio_srv.c
  * @brief   GPIO Service Layer Implementation
- * @details Implementation của GPIO service layer, wrapper cho GPIO driver
+ * @details GPIO service layer implementation, wrapper for GPIO driver
  *
  * @author  PhucPH32
  * @date    05/12/2025

@@ -44,6 +44,10 @@
 #define APP_B1_LED_RED_PORT         (3U)            /* Port D */
 #define APP_B1_LED_RED_PIN          (15U)           /* Red LED - PTD15 */
 
+/** @brief LED pin definitions */
+#define APP_B1_LED_GREEN_PORT         (3U)            /* Port D */
+#define APP_B1_LED_GREEN_PIN          (16U)           /* Red LED - PTD15 */
+
 /*******************************************************************************
  * Type Definitions
  ******************************************************************************/

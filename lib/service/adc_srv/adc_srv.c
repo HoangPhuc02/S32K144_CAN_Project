@@ -95,61 +95,27 @@ adc_srv_status_t ADC_SRV_RegisterCallback(adc_srv_user_callback_t callback)
 
 adc_srv_status_t ADC_SRV_Start(adc_srv_config_t *config)
 {
-    if (!s_adc_initialized)
-    {
-        return ADC_SRV_NOT_INITIALIZED;
-    }
-    
-    if (config == NULL)
-    {
-        return ADC_SRV_ERROR;
-    }
-    
-    /* Check if previous conversion is still busy */
-    if (s_conversion_busy)
-    {
-        return ADC_SRV_BUSY;
-    }
 
-    /* Configure interrupt based on mode */
-    adc_status_t status = ADC_InterruptConfig(s_adc_instance, config->interrupt);
-    
-    if (status != ADC_STATUS_SUCCESS)
-    {
-        return ADC_SRV_ERROR;
-    }
-    
-    /* Start conversion */
-    if (config->mode == ADC_SRV_MODE_INTERRUPT)
-    {
-        /* Set busy flag for interrupt mode */
-        s_conversion_busy = true;
-        
-        /* Start conversion - result will come via callback */
-        status = ADC_ConvertAnalog(s_adc_instance, config->channel);
-    }
-    else /* ADC_SRV_MODE_BLOCKING */
-    {
-        /* Disable interrupt for polling mode */
-        ADC_InterruptConfig(s_adc_instance, ADC_CONVERSION_INTERRUPT_DISABLE);
-        
-        /* Start conversion */
-        status = ADC_ConvertAnalog(s_adc_instance, config->channel);
-        
-        /* Wait for conversion complete */
-        do
-        {
-            status = ADC_InterruptCheck(s_adc_instance);
-        } while (status == ADC_STATUS_CONVERSION_WAITING);
+	    if (!s_adc_initialized)
+	    {
+	        return ADC_SRV_NOT_INITIALIZED;
+	    }
 
-        /* Read raw value */
-        config->raw_value = (uint16_t)ADC_ReadRaw(s_adc_instance);
-        
-        /* Convert to voltage */
-        config->voltage_mv = (uint32_t)((config->raw_value * s_ref_voltage_mv) / 4096U);
-    }
+	    /* Interrupt configuration on slot 0 */
+	    adc_status_t status = ADC_InterruptConfig(s_adc_instance, config->interrupt);
+	    /* Start conversion on slot 0 */
+	    status = ADC_ConvertAnalog(s_adc_instance, config->channel);
 
-    return (status == ADC_STATUS_SUCCESS) ? ADC_SRV_SUCCESS : ADC_SRV_ERROR;
+	    /* Wait for conversion complete */
+	    do
+	    {
+	        status = ADC_InterruptCheck(s_adc_instance);
+	    } while (status == ADC_STATUS_CONVERSION_WAITING);
+
+	    /* Read raw value */
+	    config->raw_value = (uint16_t)ADC_ReadRaw(s_adc_instance);
+
+	    return (status == ADC_STATUS_SUCCESS) ? ADC_SRV_SUCCESS : ADC_SRV_ERROR;
 }
 
 adc_srv_status_t ADC_SRV_Read(adc_srv_config_t *config)

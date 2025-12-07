@@ -18,6 +18,7 @@
 #include "../../service/clock_srv/clock_srv.h"
 #include "../../service/gpio_srv/gpio_srv.h"
 #include "../../service/port_srv/port_srv.h"
+#include "../../driver/adc/adc.h"
 #include "../../driver/nvic/nvic.h"
 #include <string.h>
 
@@ -132,16 +133,25 @@ static void APP_B1_StopADCSampling(void)
  */
 static void APP_B1_ReadAndSendADC(void)
 {
-    /* Start ADC conversion */
-    if (ADC_SRV_Start(&s_adc_cfg) == ADC_SRV_SUCCESS) {
-        /* Read converted value */
-        if (ADC_SRV_Read(&s_adc_cfg) == ADC_SRV_SUCCESS) {
-            s_last_adc_value = s_adc_cfg.raw_value;
-            s_sample_count++;
-            
-            /* Send via CAN */
-            APP_B1_SendADCData(s_adc_cfg.raw_value);
-        }
+    adc_srv_status_t status;
+    
+    /* Start ADC conversion (blocking mode - value is read automatically) */
+    ADC_SRV_Start(&s_adc_cfg);
+    status = ADC_SRV_Read(&s_adc_cfg);
+    if (status == ADC_SRV_SUCCESS) {
+        /* In blocking mode, raw_value is already populated by ADC_SRV_Start() */
+        s_last_adc_value = s_adc_cfg.raw_value;
+        s_sample_count++;
+        
+        /* Send via CAN - always send even if value is 0 to verify communication works */
+        APP_B1_SendADCData(s_adc_cfg.raw_value);
+        
+        /* Toggle LED to show ADC read attempt */
+        GPIO_SRV_Toggle(APP_B1_LED_RED_PORT, APP_B1_LED_RED_PIN);
+    }
+    else {
+        /* ADC failed - send error code 0xFFFF */
+        APP_B1_SendADCData(0xFFFF);
     }
 }
 
@@ -264,8 +274,7 @@ app_b1_status_t APP_B1_Init(void)
     
     /* Configure ADC (channel 0, blocking mode) */
     s_adc_cfg.channel = APP_B1_ADC_CHANNEL;
-    s_adc_cfg.mode = ADC_SRV_MODE_BLOCKING;
-    s_adc_cfg.interrupt = ADC_CONVERSION_INTERRUPT_ENABLE;
+    s_adc_cfg.interrupt = ADC_CONVERSION_INTERRUPT_DISABLE;  /* Disable interrupt for blocking mode */
     s_adc_cfg.is_calibrated = false;
     s_adc_cfg.user_callback = NULL;
     

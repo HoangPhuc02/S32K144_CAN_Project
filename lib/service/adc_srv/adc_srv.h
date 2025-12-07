@@ -39,13 +39,7 @@ typedef enum {
     ADC_SRV_BUSY
 } adc_srv_status_t;
 
-/**
- * @brief ADC conversion mode
- */
-typedef enum {
-    ADC_SRV_MODE_BLOCKING = 0,      /**< Blocking/polling mode */
-    ADC_SRV_MODE_INTERRUPT          /**< Interrupt-driven mode */
-} adc_srv_mode_t;
+
 
 /**
  * @brief User callback function type for ADC conversion complete
@@ -61,7 +55,6 @@ typedef void (*adc_srv_user_callback_t)(uint8_t channel, uint16_t rawValue, uint
 typedef struct {
     uint8_t channel;                /**< ADC channel number (0-15) */
     adc_interrupt_t interrupt;      /**< Interrupt configuration */
-    adc_srv_mode_t mode;            /**< Conversion mode */
     uint16_t raw_value;             /**< Raw ADC value (0-4095) */
     uint32_t voltage_mv;            /**< Voltage in millivolts */
     bool is_calibrated;             /**< Calibration status */

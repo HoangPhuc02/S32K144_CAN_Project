@@ -37,7 +37,7 @@
 #define APP_B1_CMD_STOP_ADC         (0x02U)         /* Stop ADC sampling */
 
 /** @brief ADC sampling settings */
-#define APP_B1_ADC_CHANNEL          (0U)            /* ADC channel 0 */
+#define APP_B1_ADC_CHANNEL          (12U)            /* ADC channel 0 */
 #define APP_B1_ADC_SAMPLE_PERIOD_MS (1000U)         /* Sample every 1 second */
 
 /** @brief LED pin definitions */

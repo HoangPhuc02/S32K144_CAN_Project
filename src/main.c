@@ -21,13 +21,13 @@
  * Uncomment ONE of the following lines to select which board to compile:
  ******************************************************************************/
 
-//#define BUILD_BOARD_1      /* Board 1: ADC Sampling (receives CAN commands) */
-#define BUILD_BOARD_2       /* Board 2: Gateway (buttons + UART) */
+#define BUILD_BOARD_1      /* Board 1: ADC Sampling (receives CAN commands) */
+//#define BUILD_BOARD_2       /* Board 2: Gateway (buttons + UART) */
 
 /*******************************************************************************
  * Includes based on selected board
  ******************************************************************************/
-
+ 
 #ifdef BUILD_BOARD_1
     #include "../lib/app/app_b1/app_b1.h"
 #elif defined(BUILD_BOARD_2)
